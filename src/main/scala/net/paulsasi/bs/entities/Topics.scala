@@ -1,5 +1,9 @@
 package net.paulsasi.bs.entities
 
-class Topics {
-
+object Topics extends Enumeration {
+  type Topic = Value
+  val SCI_FI,
+  HORROR,
+  ADVENTURE
+  = Value
 }
