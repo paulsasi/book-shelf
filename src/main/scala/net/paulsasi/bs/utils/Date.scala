@@ -1,5 +1,7 @@
 package net.paulsasi.bs.utils
 
-class Date {
+import java.time.LocalDate
 
+class Date (datec: LocalDate) {
+  val value: LocalDate = datec
 }
