@@ -1,3 +1,5 @@
 .idea/
 
-.sbt/
+.bsp/
+
+target/
