@@ -12,9 +12,8 @@ trait AuthorRepository {
 
   @throws(classOf[AuthorPersistenceException])
   def insertAuthor(author: Author): Unit
-
-  @throws(classOf[AuthorPersistenceException])
-  def deleteAuthor(id: Long): Unit
+  
+  def deleteAuthor(id: Int): Unit
 
   @throws(classOf[AuthorPersistenceException])
   def updateAuthor(author: Author): Unit

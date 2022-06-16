@@ -54,18 +54,14 @@ object AuthorRepositoryImpl extends AuthorRepository {
                   s"VALUES ('${author.name}', '${author.surname}', '${author.nationality}');"
       this.driver.execute(query)
     } catch {
-      case e: org.postgresql.util.PSQLException => throw AuthorPersistenceException(s"Error inserting author" + e)
+      case e: org.postgresql.util.PSQLException => throw AuthorPersistenceException(s"Error inserting author. Author " +
+                                                                          s"with same name and surname already exists")
     }
   }
 
-  def deleteAuthor(id: Long): Unit = {
-    try {
-      val query = s"DELETE FROM author WHERE id=$id"
-      this.driver.execute(query)
-    } catch {
-      case e: org.postgresql.util.PSQLException => throw AuthorPersistenceException(s"Error deleting author with" +
-                                                                                    s"id $id" + e)
-    }
+  def deleteAuthor(id: Int): Unit = {
+    val query = s"DELETE FROM author WHERE id=$id"
+    this.driver.execute(query)
   }
 
   def updateAuthor(author: Author): Unit = {
