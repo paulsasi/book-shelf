@@ -22,5 +22,14 @@ object AuthorHandlersImpl extends AuthorHandlers {
       case e: AuthorPersistenceException => throw ApiAuthorException(e.toString)
     }
   }
+  
+  override def updateAuthor(id: Int, authorUpdated: Author): Unit = {
+    try {
+      AuthorRepositoryImpl.updateAuthor(id, authorUpdated)
+    } catch {
+      case e: AuthorPersistenceException => throw ApiAuthorException(e.toString)
+    }
+    
+  }
 
 }

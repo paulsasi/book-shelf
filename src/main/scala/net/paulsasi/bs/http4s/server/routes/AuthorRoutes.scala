@@ -35,19 +35,34 @@ object AuthorRoutes {
           case Some(author) => Ok(author.asJson)
           case _ => NotFound(s"No author with id $id found.")
         }
+
       case DELETE -> Root / "web" / "author" :? IdQueryParamMatcher(id) => Ok(AuthorHandlersImpl.deleteAuthorById(id.toInt))
+
       case PUT -> Root / "web" / "author" :? NameQueryParamMatcher(name) +&
                                               SurnameQueryParamMatcher(surname) +&
                                               NationalityQueryParamMatcher(maybeNationality) =>
-        val nationality = maybeNationality match {
-          case Some(maybeNationality) => maybeNationality
-          case _ => ""
-        }
         try {
+          val nationality = maybeNationality.getOrElse("")
           AuthorHandlersImpl.insertAuthor(Author(1, name, surname, nationality))
-          Ok()
+          Ok("Author successfully posted")
         } catch {
           case e: ApiAuthorException => NotFound(s"Error inserting author." + e)
+        }
+
+      case PATCH -> Root / "web" / "author" :? IdQueryParamMatcher(id) +&
+                                                NameQueryParamMatcher(nameUpdated) +&
+                                                SurnameQueryParamMatcher(surnameUpdated) +&
+                                                NationalityQueryParamMatcher(maybeNationalityUpdated) =>
+        try {
+          val nationalityUpdated = maybeNationalityUpdated.getOrElse("")
+          AuthorHandlersImpl.updateAuthor(
+            id.toInt,
+            Author(1, nameUpdated, surnameUpdated, nationalityUpdated)
+          )
+          Ok("Author successfully patched")
+        } catch {
+          case e: ApiAuthorException => NotFound(s"Error patching author with name '$nameUpdated' and" +
+                                                  s"surname '$surnameUpdated'. " + e)
         }
 
     }

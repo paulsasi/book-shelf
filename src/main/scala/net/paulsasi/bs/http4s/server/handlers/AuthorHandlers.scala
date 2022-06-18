@@ -15,7 +15,12 @@ trait AuthorHandlers {
   // Handler for DELETE /api/web/author?id=1
   def deleteAuthorById(id: Int): Unit
 
-  // Hanlder for INSERT /api/web/author?id=1
+  // Hanlder for INSERT /api/web/author?name=paul&surname=sasieta&nationality=spain
   @throws(classOf[ApiAuthorException])
   def insertAuthor(author: Author): Unit
+
+  // Hanlder for PATCH /api/web/author?name=paul&surname=sasieta&name=pepe&surname=seseta
+  @throws(classOf[ApiAuthorException])
+  def updateAuthor(id: Int, author: Author): Unit
+  
 }

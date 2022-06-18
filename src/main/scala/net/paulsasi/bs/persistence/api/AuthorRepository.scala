@@ -16,5 +16,5 @@ trait AuthorRepository {
   def deleteAuthor(id: Int): Unit
 
   @throws(classOf[AuthorPersistenceException])
-  def updateAuthor(author: Author): Unit
+  def updateAuthor(id: Int, author: Author): Unit
 }

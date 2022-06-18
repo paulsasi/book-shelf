@@ -64,14 +64,15 @@ object AuthorRepositoryImpl extends AuthorRepository {
     this.driver.execute(query)
   }
 
-  def updateAuthor(author: Author): Unit = {
+  def updateAuthor(id: Int, author: Author): Unit = {
     try{
-      val query = s"UPDATE author SET name='${author.name}', surname='${author.surname}'," +
-                  s"nationality='${author.nationality}' WHERE id=${author.id};"
+      val query = s"UPDATE author " +
+                  s"SET name='${author.name}', surname='${author.surname}', nationality='${author.nationality}' " +
+                  s"WHERE id='${id}';"
       this.driver.execute(query)
     } catch {
-      case e: org.postgresql.util.PSQLException => throw AuthorPersistenceException(s"Error udpating autor with" +
-                                                                                    s"id ${author.id}" + e)
+      case e: org.postgresql.util.PSQLException => throw AuthorPersistenceException(s"Error updating author with " +
+                                                                                    s"id $id" + e)
     }
   }
 }
