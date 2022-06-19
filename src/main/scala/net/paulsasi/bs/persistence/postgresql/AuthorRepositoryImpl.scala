@@ -9,15 +9,9 @@ import scala.collection.mutable.ListBuffer
 
 object AuthorRepositoryImpl extends AuthorRepository {
 
-  private val driver: JdbcPostgresDriver = JdbcPostgresDriver(
-                                                             "jdbc:postgresql://localhost/book-shelf",
-                                                            "book-shelf",
-                                                        "book-shelf"
-  )
-
   def getAllAuthors(): Option[List[Author]] = {
     val query = "SELECT * FROM author;"
-    val result = this.driver.executeQuery(query)
+    val result = JdbcPostgresDriver.executeQuery(query)
 
     var authors = ListBuffer[Author]()
     while (result.next()) {
@@ -35,7 +29,7 @@ object AuthorRepositoryImpl extends AuthorRepository {
   def getAuthor(id: Long): Option[Author] = {
 
     val query = s"SELECT * FROM author WHERE id=$id;"
-    val result = this.driver.executeQuery(query)
+    val result = JdbcPostgresDriver.executeQuery(query)
     if (result.next()) {
       val author = Author(
         result.getLong("id"),
@@ -52,7 +46,7 @@ object AuthorRepositoryImpl extends AuthorRepository {
     try {
       val query = s"INSERT INTO author(name, surname, nationality)" +
                   s"VALUES ('${author.name}', '${author.surname}', '${author.nationality}');"
-      this.driver.execute(query)
+      JdbcPostgresDriver.execute(query)
     } catch {
       case e: org.postgresql.util.PSQLException => throw AuthorPersistenceException(s"Error inserting author. Author " +
                                                                           s"with same name and surname already exists")
@@ -61,7 +55,7 @@ object AuthorRepositoryImpl extends AuthorRepository {
 
   def deleteAuthor(id: Int): Unit = {
     val query = s"DELETE FROM author WHERE id=$id"
-    this.driver.execute(query)
+    JdbcPostgresDriver.execute(query)
   }
 
   def updateAuthor(id: Int, author: Author): Unit = {
@@ -69,7 +63,7 @@ object AuthorRepositoryImpl extends AuthorRepository {
       val query = s"UPDATE author " +
                   s"SET name='${author.name}', surname='${author.surname}', nationality='${author.nationality}' " +
                   s"WHERE id='${id}';"
-      this.driver.execute(query)
+      JdbcPostgresDriver.execute(query)
     } catch {
       case e: org.postgresql.util.PSQLException => throw AuthorPersistenceException(s"Error updating author with " +
                                                                                     s"id $id" + e)

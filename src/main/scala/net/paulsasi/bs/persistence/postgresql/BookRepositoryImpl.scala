@@ -11,9 +11,7 @@ import java.sql.DriverManager
 import java.sql.Connection
 
 
-class BookRepositoryImpl(driverc: JdbcPostgresDriver) extends BookRepository {
-
-  val driver: JdbcPostgresDriver = driverc
+class BookRepositoryImpl extends BookRepository {
 
   def getAllBooks(): List[Book] = {
 
