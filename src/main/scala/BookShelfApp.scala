@@ -17,11 +17,14 @@ import org.http4s.server.Router
 import org.http4s.server.blaze.BlazeServerBuilder
 
 import net.paulsasi.bs.http4s.server.routes.AuthorRoutes.authorRoutes
+import net.paulsasi.bs.boot.Boot
 
 
 object BookShelfApp extends IOApp {
 
   override def run(args: List[String]): IO[ExitCode] = {
+    
+    Boot
 
     val apis = Router(
       "/api" -> authorRoutes[IO]
