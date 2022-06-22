@@ -6,7 +6,7 @@ class ApiAuthorException(s: String) extends Exception(s){}
 
 trait AuthorHandlers {
 
-  // Hanlder for GET /api/web/authors
+  // Handler for GET /api/web/authors
   def getAuthors(): Option[List[Author]]
 
   // Handler for GET /api/web/author?id=1

@@ -36,7 +36,10 @@ object AuthorRoutes {
           case _ => NotFound(s"No author with id $id found.")
         }
 
-      case DELETE -> Root / "web" / "author" :? IdQueryParamMatcher(id) => Ok(AuthorHandlersImpl.deleteAuthorById(id.toInt))
+      case DELETE -> Root / "web" / "author" :? IdQueryParamMatcher(id) => {
+        AuthorHandlersImpl.deleteAuthorById(id.toInt)
+        Ok(s"Author with id $id successfully deleted.")
+      }
 
       case PUT -> Root / "web" / "author" :? NameQueryParamMatcher(name) +&
                                               SurnameQueryParamMatcher(surname) +&
