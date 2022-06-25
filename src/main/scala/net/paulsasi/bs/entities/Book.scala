@@ -9,7 +9,7 @@ import net.paulsasi.bs.utils.dateEncoder
 import net.paulsasi.bs.entities.Topics
 import net.paulsasi.bs.entities.topicEncoder
 
-case class Book(id: Long, name: String, author: Author, releaseDate: Date, topic: Topics.Topic) {}
+case class Book(id: Long, name: String, author: Author, releaseDate: Date, topic: Topics) {}
 
 implicit val bookEncoder: Encoder[Book] = {
   (b: Book) => Json.obj(

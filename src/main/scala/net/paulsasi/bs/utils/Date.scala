@@ -8,9 +8,11 @@ import net.paulsasi.bs.entities.Book
 
 import java.time.LocalDate
 
+
 case class Date(date: LocalDate) {}
 
-implicit val dateEncoder: Encoder[Date] = {
-  (d: Date) => d.date.toString.asJson
-}
+def dateFromString(s: String): Date = return Date(LocalDate.parse(s))
+
+implicit val dateEncoder: Encoder[Date] = (d: Date) => d.date.toString.asJson
+
 

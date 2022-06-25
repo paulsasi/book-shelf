@@ -10,7 +10,7 @@ CREATE TABLE author (
 CREATE TABLE book (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    release_date TIMESTAMP WITH TIME ZONE NOT NULL,
+    release_date DATE NOT NULL,
     topic VARCHAR(100),
     author_id BIGINT,
 
