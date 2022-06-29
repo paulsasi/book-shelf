@@ -1,6 +1,6 @@
-# RESTful API
+# RESTful API - Author
 
-This section describes the API endpoints and an end-to-end example on usage. The request and response are JSON objects.
+This section describes the author related API endpoints and an end-to-end example on usage. The request and response are JSON objects.
 
 ## GET all authors
 `GET /api/web/authors`
