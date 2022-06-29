@@ -2,7 +2,7 @@ CREATE TABLE author (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     surname VARCHAR(100) NOT NULL,
-    nationality VARCHAR(100),
+    nationality VARCHAR(100) NOT NULL,
 
     CONSTRAINT author_name_surname_key UNIQUE (name, surname)
 );
@@ -11,7 +11,7 @@ CREATE TABLE book (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     release_date DATE NOT NULL,
-    topic VARCHAR(100),
+    topic VARCHAR(100) NOT NULL,
     author_id BIGINT,
 
     CONSTRAINT book_author_id_fkey FOREIGN KEY (author_id) REFERENCES author(id),

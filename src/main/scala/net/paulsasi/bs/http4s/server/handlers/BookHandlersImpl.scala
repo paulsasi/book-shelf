@@ -13,4 +13,10 @@ object BookHandlersImpl extends BookHandlers {
 
   override def getBookById(id: Long): Option[Book] = BookRepositoryImpl.getBook(id)
 
+  override def deleteBookById(id: Long): Unit = BookRepositoryImpl.deleteBook(id)
+
+  override def insertBook(book: Book): Unit = BookRepositoryImpl.insertBook(book)
+  
+  override def updateBook(id: Long, book: Book): Unit = BookRepositoryImpl.updateBook(id, book)
+
 }

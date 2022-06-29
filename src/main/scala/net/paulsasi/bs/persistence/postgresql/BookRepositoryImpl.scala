@@ -5,6 +5,7 @@ import net.paulsasi.bs.entities.Author
 import net.paulsasi.bs.entities.Topics
 import net.paulsasi.bs.utils.Date
 import net.paulsasi.bs.utils.dateFromString
+import net.paulsasi.bs.utils.dateToString
 import net.paulsasi.bs.persistence.api.BookRepository
 import net.paulsasi.bs.persistence.postgresql.JdbcPostgresDriver
 
@@ -83,16 +84,39 @@ object BookRepositoryImpl extends BookRepository {
     }
     return None
   }
-//
-//  def insertBook(book: Book): Unit = {
-//    ()
-//  }
-//
-//  def deleteBook(id: Long): Unit = {
-//    ()
-//  }
-//
-//  def updateBook(book: Book): Unit = {
-//    ()
-// }
+
+  override def deleteBook(id: Long): Unit = {
+    val query = s"DELETE FROM book WHERE id=${id};"
+    JdbcPostgresDriver.execute(query)
+  }
+
+  override def insertBook(book: Book): Unit = {
+    val query = s"INSERT INTO book(name,release_date,topic,author_id) " +
+                s"VALUES (" +
+                          s"'${book.name}'," +
+                          s"'${dateToString(book.releaseDate)}'," +
+                          s"'${book.topic.toString}'," +
+                          s"'${book.author.id}'" +
+                s");"
+
+    println("################")
+    println(query)
+    JdbcPostgresDriver.execute(query)
+  }
+
+  override def updateBook(id: Long, book: Book): Unit = {
+
+    val query = s"UPDATE book " +
+                s"SET " +
+                      s"name='${book.name}'," +
+                      s"release_date='${dateToString(book.releaseDate)}'," +
+                      s"topic='${book.topic.toString}'," +
+                      s"author_id=${book.author.id} " +
+                s"WHERE id=${id};"
+
+    println(query)
+    JdbcPostgresDriver.execute(query)
+
+  }
+
 }

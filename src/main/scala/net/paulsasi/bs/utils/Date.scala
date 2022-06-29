@@ -13,6 +13,8 @@ case class Date(date: LocalDate) {}
 
 def dateFromString(s: String): Date = return Date(LocalDate.parse(s))
 
+def dateToString(d: Date): String = return d.date.toString
+
 implicit val dateEncoder: Encoder[Date] = (d: Date) => d.date.toString.asJson
 
 

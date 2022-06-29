@@ -9,10 +9,10 @@ trait BookRepository {
   def getAllBooks(topic: Option[Topics] = None, authorId: Option[Long] = None): Option[List[Book]]
 
   def getBook(id: Long): Option[Book]
-//
-//  def insertBook(book: Book): Unit
-//
-//  def deleteBook(id: Long): Unit
-//
-//  def updateBook(book: Book): Unit
+
+  def deleteBook(id: Long): Unit
+  
+  def insertBook(book: Book): Unit
+  
+  def updateBook(id: Long, book: Book): Unit
 }
